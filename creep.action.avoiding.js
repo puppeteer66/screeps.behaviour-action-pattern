@@ -5,7 +5,7 @@ action.lairDangerRange = 14;
 action.targetRange = 0;
 action.reachedRange = 0;
 action.isActiveLair = function(target) {
-    return !_.isUndefined(target.ticksToSpawn) && target.ticksToSpawn <= action.lairDangerTime; // non-lair => true
+    return !_.isUndefined(target.ticksToSpawn) && target.ticksToSpawn <= action.lairDangerTime;
 };
 action.isValidAction = function(creep){
     return creep.data.destiny && creep.data.destiny.room === creep.room.name &&
