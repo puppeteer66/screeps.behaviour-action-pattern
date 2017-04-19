@@ -223,6 +223,7 @@ global.install = () => {
     });
     global.inject(Creep, load("creep"));
     global.inject(Room, load("room"));
+    global.inject(PathFinder, load('pathFinder'));
     _.assign(Room, {
         _ext: {
             labs: load("room.labs"),
@@ -234,6 +235,7 @@ global.install = () => {
     //global.extend();
     Extensions.extend();
     Creep.extend();
+    PathFinder.extend();
     Room.extend();
     Spawn.extend();
     FlagDir.extend();
