@@ -26,6 +26,7 @@ const mod = class {
             
             PathFinder.CostMatrix.deserialize = function(data) {
                 const parse = serialized => {
+                    serialized = Array.isArray(serialized) ? serialized.toString() : serialized; // support for old cached values
                     const arr = serialized.replace(/(\d+)x(\d+),?/g, (z, p1, p2) => _.repeat(p1 + ',', +p2)).split(',');
                     arr.pop();
                     return arr.map(s => +s);
