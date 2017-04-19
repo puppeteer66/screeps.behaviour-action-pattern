@@ -851,13 +851,13 @@ mod.extend = function(){
 
                     if (cacheValid(this.name)) {
                         if (_.isUndefined(Room.pathfinderCache[this.name].costMatrix)) {
-                            const costMatrix = PathFinder.CostMatrix.deserialize(Room.pathfinderCache[this.name].serializedMatrix);
+                            const costMatrix = CostMatrix.deserialize(Room.pathfinderCache[this.name].serializedMatrix);
                             Room.pathfinderCache[this.name].costMatrix = costMatrix;
                         } 
                         this._structureMatrix = Room.pathfinderCache[this.name].costMatrix;
                     } else {
                         if (global.DEBUG) logSystem(this.name, 'Calculating cost matrix');
-                        var costMatrix = new PathFinder.CostMatrix();
+                        const costMatrix = new CostMatrix();
                         let setCosts = structure => {
                             const site = structure instanceof ConstructionSite;
                             // don't walk on allied construction sites.

@@ -223,7 +223,6 @@ global.install = () => {
     });
     global.inject(Creep, load("creep"));
     global.inject(Room, load("room"));
-    global.inject(PathFinder, load('pathFinder'));
     _.assign(Room, {
         _ext: {
             labs: load("room.labs"),
@@ -235,7 +234,6 @@ global.install = () => {
     //global.extend();
     Extensions.extend();
     Creep.extend();
-    PathFinder.extend();
     Room.extend();
     Spawn.extend();
     FlagDir.extend();
@@ -244,6 +242,7 @@ global.install = () => {
     if( global.mainInjection.extend ) global.mainInjection.extend();
     OCSMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
 
+    CostMatrix = load("costMatrix");
     global.modulesValid = Memory.modules.valid;
     if (global.DEBUG) logSystem('Global.install', 'Code reloaded.');
 };
