@@ -10,7 +10,7 @@ mod.register = function() {
 Room.pathfinderCache = {};
 Room.pathfinderCacheDirty = false;
 Room.pathfinderCacheLoaded = false;
-Room.COSTMATRIX_CACHE_VERSION = 3; // change this to invalidate previously cached costmatrices
+Room.COSTMATRIX_CACHE_VERSION = 4; // change this to invalidate previously cached costmatrices
 mod.extend = function(){
     // run extend in each of our submodules
     for (const key of Object.keys(Room._ext)) {
