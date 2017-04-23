@@ -14,7 +14,7 @@ mod.run = function(creep) {
             }
         }
     }
-    if( DEBUG && TRACE ) trace('Behaviour', {creepName:creep.name, run:creep.action && creep.action.name || 'none', [mod.name]: 'run', Behaviour:mod.name});
+    if( global.DEBUG && global.TRACE ) trace('Behaviour', {creepName:creep.name, run:creep.action && creep.action.name || 'none', [mod.name]: 'run', Behaviour:mod.name});
 };
 mod.actions = (creep) => {
     return [

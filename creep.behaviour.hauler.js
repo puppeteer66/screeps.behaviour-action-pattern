@@ -17,7 +17,7 @@ mod.outflowActions = (creep) => {
     ];
     if ( creep.sum > creep.carry.energy ||
             ( !creep.room.situation.invasion &&
-                SPAWN_DEFENSE_ON_ATTACK && creep.room.conserveForDefense && creep.room.relativeEnergyAvailable > 0.8)) {
+                global.SPAWN_DEFENSE_ON_ATTACK && creep.room.conserveForDefense && creep.room.relativeEnergyAvailable > 0.8)) {
         priority.unshift(Creep.action.storing);
     }
     if (creep.room.structures.urgentRepairable.length > 0 ) {
@@ -34,4 +34,16 @@ mod.nextAction = function(creep){
         return mod.selectInflowAction(creep);
     else
         return mod.selectAction(creep, mod.outflowActions(creep));
+};
+mod.selectStrategies = function(actionName) {
+    return [mod.strategies.defaultStrategy, mod.strategies[actionName]];
+};
+mod.strategies = {
+    defaultStrategy: {
+        name: `default-${mod.name}`
+    },
+    picking: {
+        name: `picking-${mod.name}`,
+        energyOnly: false
+    }
 };

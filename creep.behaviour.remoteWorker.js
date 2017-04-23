@@ -1,6 +1,12 @@
 const mod = new Creep.Behaviour('remoteWorker');
 module.exports = mod;
 mod.run = function(creep) {
+    const flag = creep.data.destiny && Game.flags[creep.data.destiny.targetName];
+    if (!flag && (!creep.action || creep.action.name !== 'recycling')) {
+        //TODO: in the future, look for another nearby room we can support
+        return Creep.action.recycling.assign(creep);
+    }
+
     if (Creep.action.avoiding.run(creep)) {
         return;
     }
