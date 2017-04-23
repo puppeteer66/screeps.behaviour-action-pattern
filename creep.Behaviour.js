@@ -14,7 +14,7 @@ const Behaviour = function(name) {
         if (global.DEBUG && global.TRACE) trace('Action', {actionName:action.name, behaviourName:this.name, creepName:creep.name, addable, Action:'isAddableAction'});
         if (!addable) return false;
 
-        const assigned = a.assignDebounce ? a.assignDebounce(creep, debouncePriority) : a.assign(creep);
+        const assigned = action.assignDebounce ? action.assignDebounce(creep, debouncePriority, target) : action.assign(creep, target);
         if (assigned) {
             if (global.DEBUG && global.TRACE) trace(assigned ? 'Behaviour' : 'Action', {actionName:action.name, behaviourName:this.name, reepName:creep.name, assigned, Behaviour:'nextAction', Action:'assign'});
             creep.data.lastAction = action.name;
@@ -51,7 +51,7 @@ const Behaviour = function(name) {
     };
     this.run = function(creep) {
         // Assign next Action
-        if (invalidAction(creep)) {
+        if (this.invalidAction(creep)) {
             if (creep.data.destiny && creep.data.destiny.task && Task[creep.data.destiny.task] && Task[creep.data.destiny.task].nextAction) {
                 Task[creep.data.destiny.task].nextAction(creep);
             }

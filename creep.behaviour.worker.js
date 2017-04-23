@@ -58,8 +58,8 @@ mod.nextAction = function(creep) {
         return true;
     }
     if (this.needEnergy(creep)) {
-        return mod.selectInflowAction(creep);
+        return this.selectInflowAction(creep);
     } else {
-        return mod.selectAction(creep, mod.outflowActions(creep));
+        return this.selectAction(creep, this.outflowActions(creep));
     }
 };

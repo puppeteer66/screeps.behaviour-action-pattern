@@ -5,7 +5,7 @@ mod.run = function(creep) {
     creep.flee = creep.flee || !creep.hasActiveBodyparts([ATTACK, RANGED_ATTACK]);
     creep.attacking = false;
     creep.attackingRanged = false;
-    super_run(creep);
+    super_run.call(this, creep);
     this.heal(creep);
 };
 mod.heal = function(creep){

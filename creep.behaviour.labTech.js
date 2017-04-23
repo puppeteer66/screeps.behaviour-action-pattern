@@ -25,10 +25,7 @@ mod.outflowActions = (creep) => {
     }
     return priority;
 };
-const super_nextAction = mod.nextAction;
+mod.needEnergy = (creep) => creep.sum < creep.carryCapacity / 2;
 mod.nextAction = function(creep) {
-    if( creep.pos.roomName != creep.data.homeRoom && Game.rooms[creep.data.homeRoom] && Game.rooms[creep.data.homeRoom].controller ) {
-        return Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
-    }
-    return super_nextAction(creep);
+    return Creep.behaviour.hauler.nextAction.call(this, creep);
 };

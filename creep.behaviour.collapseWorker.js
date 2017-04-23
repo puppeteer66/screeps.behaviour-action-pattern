@@ -53,7 +53,7 @@ mod.nextAction = function(creep) {
         if( global.DEBUG && global.TRACE ) trace('Behaviour', {actionName:'recycling', behaviourName:this.name, creepName:creep.name, assigned: true, Behaviour:'nextAction', Action:'assign'});
         return this.assignAction(creep, 'recycling');
     }
-    return super_nextAction(creep);
+    return super_nextAction.call(this, creep);
 };
 mod.strategies.defaultStrategy.canWithdrawEnergy = function(creep, target) {
     return function(amount) {

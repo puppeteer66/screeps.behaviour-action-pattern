@@ -3,7 +3,7 @@ module.exports = mod;
 const super_run = mod.run;
 mod.run = function(creep) {
     if (!Creep.action.avoiding.run(creep)) {
-        super_run(creep);
+        super_run.call(this, creep);
     }
 };
 mod.inflowActions = (creep) => {
@@ -28,9 +28,9 @@ mod.nextAction = function(creep) {
     } else if (creep.data.destiny.room === creep.pos.roomName) { // at target room
         if (creep.sum < creep.carryCapacity * 0.8) {
             // get some energy
-            return mod.selectInflowAction(creep);
+            return this.selectInflowAction(creep);
         } else {
-            return mod.selectAction(creep, mod.outflowActions(creep));
+            return this.selectAction(creep, this.outflowActions(creep));
         }
     } else { // not at target room
         return this.gotoTargetRoom(creep);

@@ -3,7 +3,7 @@ module.exports = mod;
 const super_run = mod.run;
 mod.run = function(creep) {
     if (!Creep.action.avoiding.run(creep)) {
-        super_run(creep);
+        super_run.call(this, creep);
     }
 };
 mod.nextAction = function(creep) {
@@ -19,7 +19,7 @@ mod.nextAction = function(creep) {
     }
 };
 mod.mine = function(creep) {
-    return Creep.behaviour.miner.run(creep, {remote:true, approach:mod.approach});
+    return Creep.behaviour.miner.run.call(this, creep, {remote:true, approach:this.approach});
 };
 mod.approach = function(creep) {
     let targetPos = new RoomPosition(creep.data.determinatedSpot.x, creep.data.determinatedSpot.y, creep.data.destiny.room);

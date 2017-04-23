@@ -12,7 +12,6 @@ mod.determineTarget = creep => {
     }
     if( SAY_ASSIGNMENT ) creep.say(String.fromCharCode(9935), SAY_PUBLIC);
 };
-const super_run = Creep.behaviour.miner.run;
 mod.run = function(creep) {
-    return super_run(creep, {determineTarget: mod.determineTarget});
+    return Creep.behaviour.miner.run.call(this, creep, {determineTarget: mod.determineTarget});
 };

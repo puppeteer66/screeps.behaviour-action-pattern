@@ -32,8 +32,8 @@ mod.determineTarget = creep => {
     if( SAY_ASSIGNMENT ) creep.say(String.fromCharCode(9935), global.SAY_PUBLIC);
 };
 mod.run = function(creep, params = {}) {
-    if (_.isUndefined(params.approach)) params.approach = mod.approach;
-    if (_.isUndefined(params.determineTarget)) params.determineTarget = mod.determineTarget;
+    if (_.isUndefined(params.approach)) params.approach = this.approach;
+    if (_.isUndefined(params.determineTarget)) params.determineTarget = this.determineTarget;
     let source;
     if( !creep.data.determinatedTarget ) { // select source
         params.determineTarget(creep);

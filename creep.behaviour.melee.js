@@ -2,7 +2,7 @@ const mod = new Creep.Behaviour('melee');
 module.exports = mod;
 const super_invalidAction = mod.invalidAction;
 mod.invalidAction = function(creep) {
-    return super_invalidAction(creep) || (creep.action.name === 'guarding' &&
+    return super_invalidAction.call(this, creep) || (creep.action.name === 'guarding' &&
             (!creep.flag || creep.flag.pos.roomName === creep.pos.roomName || creep.leaveBorder())
         );
 };
@@ -11,7 +11,7 @@ mod.run = function(creep) {
     creep.flee = creep.flee || !creep.hasActiveBodyparts([ATTACK, RANGED_ATTACK]);
     creep.attacking = false;
     creep.attackingRanged = false;
-    super_run(creep);
+    super_run.call(this, creep);
     this.heal(creep);
 };
 mod.heal = function(creep){

@@ -2,7 +2,7 @@ let mod = new Creep.Behaviour('privateer');
 module.exports = mod;
 const super_run = mod.run;
 mod.run = function(creep) {
-    super_run(creep);
+    super_run.call(this, creep);
     if( creep.hits < creep.hitsMax ) { // creep injured. move to next owned room
         if (!creep.data.nearestHome || !Game.rooms[creep.data.nearestHome]) creep.data.nearestHome = Room.bestSpawnRoomFor(creep.pos.roomName);
         if (creep.data.nearestHome) {
@@ -33,7 +33,7 @@ mod.nextAction = function(creep){
             //if( Creep.action.storing.assign(creep) ) return;
             if (this.assignAction(creep, 'charging')) return;
             if (!creep.room.ally && this.assignAction(creep, 'storing')) return;
-            Creep.behaviour.worker.nextAction(creep);
+            Creep.behaviour.worker.nextAction.call(this, creep);
             return;
         }
         // empty
@@ -43,7 +43,7 @@ mod.nextAction = function(creep){
         else {
             // no new flag
             // behave as worker
-            Creep.behaviour.worker.nextAction(creep);
+            Creep.behaviour.worker.nextAction.call(this, creep);
             return;
         }
     }

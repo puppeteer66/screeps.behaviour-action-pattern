@@ -1,4 +1,4 @@
-let mod = new Creep.Behaviour('remoteHauler');
+const mod = new Creep.Behaviour('remoteHauler');
 module.exports = mod;
 mod.nextAction = function(creep) {
     const flag = creep.data.destiny && Game.flags[creep.data.destiny.targetName];

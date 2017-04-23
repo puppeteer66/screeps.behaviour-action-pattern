@@ -1,6 +1,6 @@
 const mod = new Creep.Behaviour('pioneer');
 module.exports = mod;
-mod.inflowActions = (creep) => Creep.behaviour.worker.inflowActions(creep);
+mod.inflowActions = (creep) => Creep.behaviour.worker.inflowActions.call(this, creep);
 mod.outflowActions = (creep) => {
     let priority;
     if (creep.room.controller && creep.room.controller.level < 2) {
@@ -72,8 +72,8 @@ mod.nextAction = function(creep) {
     }    
     
     if( creep.sum < (creep.carryCapacity*0.5) ) {
-        return mod.selectInflowAction(creep);
+        return this.selectInflowAction(creep);
     } else {
-        return mod.selectAction(creep, mod.outflowActions(creep));
+        return this.selectAction(creep, this.outflowActions(creep));
     }
 };
