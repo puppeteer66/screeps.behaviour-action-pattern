@@ -1,27 +1,9 @@
 const mod = new Creep.Behaviour('remoteWorker');
 module.exports = mod;
+const super_run = mod.run;
 mod.run = function(creep) {
-    const flag = creep.data.destiny && Game.flags[creep.data.destiny.targetName];
-    if (!flag && (!creep.action || creep.action.name !== 'recycling')) {
-        //TODO: in the future, look for another nearby room we can support
-        return Creep.action.recycling.assign(creep);
-    }
-
-    if (Creep.action.avoiding.run(creep)) {
-        return;
-    }
-
-    // Assign next Action
-    let oldTargetId = creep.data.targetId;
-    if( creep.action == null || creep.action.name == 'idle' ) {
-        this.nextAction(creep);
-    }
-    
-    // Do some work
-    if( creep.action && creep.target ) {
-        creep.action.step(creep);
-    } else {
-        logError('Creep without action/activity!\nCreep: ' + creep.name + '\ndata: ' + JSON.stringify(creep.data));
+    if (!Creep.action.avoiding.run(creep)) {
+        super_run(creep);
     }
 };
 mod.inflowActions = (creep) => {
@@ -40,8 +22,10 @@ mod.outflowActions = (creep) => {
     ];
 };
 mod.nextAction = function(creep) {
-    // at target room
-    if (creep.data.destiny.room == creep.pos.roomName) {
+    const flag = creep.data.destiny && Game.flags[creep.data.destiny.targetName];
+    if (!flag && (!creep.action || creep.action.name !== 'recycling')) {
+        return this.assignAction(creep, 'recycling');
+    } else if (creep.data.destiny.room === creep.pos.roomName) { // at target room
         if (creep.sum < creep.carryCapacity * 0.8) {
             // get some energy
             return mod.selectInflowAction(creep);
@@ -51,14 +35,8 @@ mod.nextAction = function(creep) {
     } else { // not at target room
         return this.gotoTargetRoom(creep);
     }
-    // fallback
-    // recycle self
-    let mother = Game.spawns[creep.data.motherSpawn];
-    if( mother ) {
-        Creep.action.recycling.assign(creep, mother);
-    }
 };
-mod.gotoTargetRoom = function(creep){
+mod.gotoTargetRoom = function(creep) {
     const targetFlag = creep.data.destiny ? Game.flags[creep.data.destiny.targetName] : null;
     if (targetFlag) return Creep.action.travelling.assignRoom(creep, targetFlag.pos.roomName);
 };

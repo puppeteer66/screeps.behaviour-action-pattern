@@ -4,7 +4,8 @@ const Behaviour = function(name) {
     this.actions = (creep) => []; // priority list of non resource based actions
     this.inflowActions = (creep) => []; // priority list of actions for getting resources
     this.outflowActions = (creep) => []; // priority list of actions for using resources
-    this.assignAction = function(creep, action, assign, debouncePriority) {
+    this.assignAction = function(creep, action, target, debouncePriority) {
+        if (typeof action === 'string') action = Creep.action[action];
         const valid = action.isValidAction(creep);
         if (global.DEBUG && global.TRACE) trace('Action', {actionName:action.name, behaviourName:this.name, creepName:creep.name, valid, Action:'isValidAction'});
         if (!valid) return false;
@@ -22,13 +23,12 @@ const Behaviour = function(name) {
         }
         return false;
     };
-
     this.selectInflowAction = function(creep) {
         const actionChecked = {};
         for (const action of this.inflowActions(creep)) {
             if (!actionChecked[action.name]) {
                 actionChecked[action.name] = true;
-                if (this.assignAction(creep, action, this.outflowActions(creep))) return;
+                if (this.assignAction(creep, action, null, this.outflowActions(creep))) return;
             }
         }
         return Creep.action.idle.assign(creep);
@@ -66,6 +66,14 @@ const Behaviour = function(name) {
         } else {
             logError('Creep without action/activity!\nCreep: ' + creep.name + '\ndata: ' + JSON.stringify(creep.data));
         }
+    };
+    this.strategies = {
+        defaultStrategy: {
+            name: `default-${this.name}`,
+        }
+    };
+    this.selectStrategies = function(actionName) {
+        return [this.strategies.defaultStrategy, this.strategies[actionName]];
     };
 };
 module.exports = Behaviour;

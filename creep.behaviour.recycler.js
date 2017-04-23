@@ -1,21 +1,14 @@
-let mod = {};
+const mod = new Creep.Behaviour('recycler');
 module.exports = mod;
-mod.name = 'recycler';
-mod.run = function(creep) {
-    // Assign next Action
-    if( !creep.action || creep.action.name != 'recycling' ) {
+const super_invalidAction = mod.invalidAction;
+mod.invalidAction = function(creep) {
+    if (super_invalidAction(creep) || creep.action.name !== recycling) {
         delete creep.data.targetId;
         delete creep.data.path;
-        this.nextAction(creep);
+        return true;
     }
-    
-    // Do some work
-    if( creep.action && creep.target ) {
-        creep.action.step(creep);
-    } else {
-        logError('Creep without action/activity!\nCreep: ' + creep.name + '\ndata: ' + JSON.stringify(creep.data));
-    }
+    return false;
 };
 mod.nextAction = function(creep) {
-    Creep.action.recycling.assign(creep);
+    this.assignAction(creep, 'recycling');
 };

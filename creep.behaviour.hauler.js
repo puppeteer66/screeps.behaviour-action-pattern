@@ -35,15 +35,7 @@ mod.nextAction = function(creep){
     else
         return mod.selectAction(creep, mod.outflowActions(creep));
 };
-mod.selectStrategies = function(actionName) {
-    return [mod.strategies.defaultStrategy, mod.strategies[actionName]];
-};
-mod.strategies = {
-    defaultStrategy: {
-        name: `default-${mod.name}`
-    },
-    picking: {
-        name: `picking-${mod.name}`,
-        energyOnly: false
-    }
+mod.strategies.picking = {
+    name: `picking-${mod.name}`,
+    energyOnly: false
 };

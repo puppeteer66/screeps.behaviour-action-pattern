@@ -1,7 +1,8 @@
 const mod = new Creep.Behaviour('claimer');
 module.exports = mod;
+const super_run = mod.run;
 mod.run = function(creep) {
-    Creep.Behaviour.run(creep);
+    super_run(creep);
     if( creep.hits < creep.hitsMax ) { // creep injured. move to next owned room
         if (creep.data) {
             if (!creep.data.nearestHome || !Game.rooms[creep.data.nearestHome]) creep.data.nearestHome = Room.bestSpawnRoomFor(creep.pos.roomName);

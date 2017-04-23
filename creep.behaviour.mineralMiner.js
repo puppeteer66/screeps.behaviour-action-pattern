@@ -1,6 +1,5 @@
-let mod = {};
+const mod = new Creep.Behaviour('mineralMiner');
 module.exports = mod;
-mod.name = 'mineralMiner';
 mod.determineTarget = creep => {
     let notDeterminated = source => {
         let hasThisSource = data => data.determinatedTarget === source.id;
@@ -13,6 +12,7 @@ mod.determineTarget = creep => {
     }
     if( SAY_ASSIGNMENT ) creep.say(String.fromCharCode(9935), SAY_PUBLIC);
 };
+const super_run = Creep.behaviour.miner.run;
 mod.run = function(creep) {
-    return Creep.behaviour.miner.run(creep, {determineTarget: mod.determineTarget});
+    return super_run(creep, {determineTarget: mod.determineTarget});
 };

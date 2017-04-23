@@ -1,7 +1,8 @@
 let mod = new Creep.Behaviour('privateer');
 module.exports = mod;
+const super_run = mod.run;
 mod.run = function(creep) {
-    Creep.Behaviour.run(creep);
+    super_run(creep);
     if( creep.hits < creep.hitsMax ) { // creep injured. move to next owned room
         if (!creep.data.nearestHome || !Game.rooms[creep.data.nearestHome]) creep.data.nearestHome = Room.bestSpawnRoomFor(creep.pos.roomName);
         if (creep.data.nearestHome) {
@@ -26,12 +27,12 @@ mod.nextAction = function(creep){
             // Choose the closest
             if( deposit.length > 0 ){
                 let target = creep.pos.findClosestByRange(deposit);
-                if( target.structureType == STRUCTURE_STORAGE && Creep.action.storing.assign(creep, target) ) return;
-                else if(Creep.action.charging.assign(creep, target) ) return;
+                if (target.structureType === STRUCTURE_STORAGE && this.assignAction(creep, 'storing', target)) return;
+                else if (this.assignAction(creep, 'charging', target)) return;
             }
             //if( Creep.action.storing.assign(creep) ) return;
-            if( Creep.action.charging.assign(creep) ) return;
-            if( !creep.room.ally && Creep.action.storing.assign(creep) ) return;
+            if (this.assignAction(creep, 'charging')) return;
+            if (!creep.room.ally && this.assignAction(creep, 'storing')) return;
             Creep.behaviour.worker.nextAction(creep);
             return;
         }
@@ -138,22 +139,9 @@ mod.exploitNextRoom = function(creep){
     }
     return false;
 };
-mod.strategies = {
-    defaultStrategy: {
-        name: `default-${mod.name}`,
-        moveOptions: function(options) {
-            // // allow routing in and through hostile rooms
-            // if (_.isUndefined(options.allowHostile)) options.allowHostile = true;
-            return options;
-        }
+mod.strategies.withdrawing = {
+    name: `withdrawing-${mod.name}`,
+    isValidAction: function(creep) {
+        return false;
     },
-    withdrawing: {
-        name: `withdrawing-${mod.name}`,
-        isValidAction: function(creep) {
-            return false;
-        },
-    },
-};
-mod.selectStrategies = function(actionName) {
-    return [mod.strategies.defaultStrategy, mod.strategies[actionName]];
 };

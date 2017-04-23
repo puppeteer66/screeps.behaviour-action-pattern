@@ -1,6 +1,6 @@
 const mod = new Creep.Behaviour('worker');
 module.exports = mod;
-mod.inflowActions = (creep) => {
+mod.inflowActions = function(creep) {
     let priority = [
         Creep.action.bulldozing,
         Creep.action.picking,
@@ -15,7 +15,7 @@ mod.inflowActions = (creep) => {
     }
     return priority;
 };
-mod.outflowActions = (creep) => {
+mod.outflowActions = function(creep) {
     if( creep.room.situation.invasion && creep.room.controller && creep.room.controller.level > 2 ) {
         return [
             Creep.action.fueling,
@@ -50,13 +50,14 @@ mod.outflowActions = (creep) => {
         return priority;
     }
 };
-mod.nextAction = function(creep){
+mod.needEnergy = (creep) => creep.sum < (creep.carryCapacity*0.5);
+mod.nextAction = function(creep) {
     if( creep.data.creepType == "worker" && creep.pos.roomName != creep.data.homeRoom && Game.rooms[creep.data.homeRoom] && Game.rooms[creep.data.homeRoom].controller ) {
         if( global.DEBUG && global.TRACE ) trace('Behaviour', {actionName:'travelling', behaviourName:this.name, creepName:creep.name, assigned: true, Behaviour:'nextAction', Action:'assign'});
         Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
         return true;
     }
-    if( creep.sum < (creep.carryCapacity*0.5) ) {
+    if (this.needEnergy(creep)) {
         return mod.selectInflowAction(creep);
     } else {
         return mod.selectAction(creep, mod.outflowActions(creep));
