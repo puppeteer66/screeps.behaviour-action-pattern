@@ -40,7 +40,7 @@ const Behaviour = function(name) {
         for (const action of this.inflowActions(creep)) {
             if (!actionChecked[action.name]) {
                 actionChecked[action.name] = true;
-                if (this.assignAction(creep, action, null, this.outflowActions(creep))) {
+                if (this.assignAction(creep, action, undefined, this.outflowActions(creep))) {
                     p.checkCPU('assigned' + action.name, 1);
                     return;
                 }
