@@ -3,7 +3,20 @@ module.exports = mod;
 const super_run = mod.run;
 mod.run = function(creep) {
     if (!Creep.action.avoiding.run(creep)) {
-        super_run.call(this, creep);
+        // TODO: Once miner behaviour is refactored to use actions, this can be replaced by super_run.call(this, creep);
+        // Assign next Action
+        if (this.invalidAction(creep)) {
+            if (creep.data.destiny && creep.data.destiny.task && Task[creep.data.destiny.task] && Task[creep.data.destiny.task].nextAction) {
+                Task[creep.data.destiny.task].nextAction(creep);
+            }
+            else {
+                this.nextAction(creep);
+            }
+        }
+        // Do some work
+        if (creep.action && creep.target) {
+            creep.action.step(creep);
+        }
     }
 };
 mod.nextAction = function(creep) {
@@ -12,6 +25,7 @@ mod.nextAction = function(creep) {
         return this.assignAction(creep, 'recycling');
     } else if ( creep.room.name === creep.data.destiny.room || creep.data.determinatedTarget) {
         // if we're there (or have been), be a miner.
+        // FIXME: This doesn't assign an action, and it should
         return this.mine(creep);
     } else {
         // else go there
