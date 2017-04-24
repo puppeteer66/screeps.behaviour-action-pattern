@@ -25,7 +25,6 @@ mod.outflowActions = (creep) => {
     }
     return priority;
 };
-mod.needEnergy = (creep) => creep.sum < creep.carryCapacity / 2;
 mod.nextAction = function(creep) {
     return Creep.behaviour.hauler.nextAction.call(this, creep);
 };

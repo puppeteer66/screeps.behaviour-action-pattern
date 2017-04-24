@@ -16,10 +16,12 @@ const Behaviour = function(name) {
 
         const assigned = action.assignDebounce ? action.assignDebounce(creep, debouncePriority, target) : action.assign(creep, target);
         if (assigned) {
-            if (global.DEBUG && global.TRACE) trace(assigned ? 'Behaviour' : 'Action', {actionName:action.name, behaviourName:this.name, reepName:creep.name, assigned, Behaviour:'nextAction', Action:'assign'});
+            if (global.DEBUG && global.TRACE) trace('Behaviour', {actionName:action.name, behaviourName:this.name, creepName:creep.name, assigned, Behaviour:'nextAction', Action:'assign'});
             creep.data.lastAction = action.name;
             creep.data.lastTarget = creep.target.id;
             return true;
+        } else if (global.DEBUG && global.TRACE) {
+            trace('Action', {actionName:action.name, behaviourName:this.name, creepName:creep.name, assigned, Behaviour:'assignAction', Action:'assign'});
         }
         return false;
     };
@@ -45,6 +47,14 @@ const Behaviour = function(name) {
     };
     this.nextAction = function(creep) {
         return this.selectAction(creep, this.actions(creep));
+    };
+    this.needEnergy = creep => creep.sum < creep.carryCapacity / 2;
+    this.nextEnergyAction = function(creep) {
+        if (this.needEnergy(creep)) {
+            return this.selectInflowAction(creep);
+        } else {
+            return this.selectAction(creep, this.outflowActions(creep));
+        }
     };
     this.invalidAction = function(creep) {
         return !creep.action || creep.action.name === 'idle';

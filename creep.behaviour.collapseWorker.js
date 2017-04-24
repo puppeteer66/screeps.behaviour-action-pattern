@@ -42,18 +42,13 @@ mod.outflowActions = (creep) => {
         return priority;
     }
 };
-const super_nextAction = mod.nextAction;
+mod.needEnergy = creep => Creep.behaviour.worker.needEnergy.call(this, creep);
 mod.nextAction = function(creep) {
-    if (creep.pos.roomName !== creep.data.homeRoom) {
-        if( global.DEBUG && global.TRACE ) trace('Behaviour', {actionName:'travelling', behaviourName:this.name, creepName:creep.name, assigned: true, Behaviour:'nextAction', Action:'assign'});
-        return Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
-    }
-
     if (!creep.room.collapsed) {
         if( global.DEBUG && global.TRACE ) trace('Behaviour', {actionName:'recycling', behaviourName:this.name, creepName:creep.name, assigned: true, Behaviour:'nextAction', Action:'assign'});
         return this.assignAction(creep, 'recycling');
     }
-    return super_nextAction.call(this, creep);
+    return Creep.behaviour.worker.nextAction.call(this, creep);
 };
 mod.strategies.defaultStrategy.canWithdrawEnergy = function(creep, target) {
     return function(amount) {

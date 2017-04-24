@@ -70,10 +70,5 @@ mod.nextAction = function(creep) {
             }
         }
     }    
-    
-    if( creep.sum < (creep.carryCapacity*0.5) ) {
-        return this.selectInflowAction(creep);
-    } else {
-        return this.selectAction(creep, this.outflowActions(creep));
-    }
+    return this.nextEnergyAction(creep);
 };

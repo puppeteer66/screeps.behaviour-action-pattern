@@ -50,16 +50,11 @@ mod.outflowActions = function(creep) {
         return priority;
     }
 };
-mod.needEnergy = (creep) => creep.sum < (creep.carryCapacity*0.5);
 mod.nextAction = function(creep) {
     if( creep.data.creepType == "worker" && creep.pos.roomName != creep.data.homeRoom && Game.rooms[creep.data.homeRoom] && Game.rooms[creep.data.homeRoom].controller ) {
         if( global.DEBUG && global.TRACE ) trace('Behaviour', {actionName:'travelling', behaviourName:this.name, creepName:creep.name, assigned: true, Behaviour:'nextAction', Action:'assign'});
         Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
         return true;
     }
-    if (this.needEnergy(creep)) {
-        return this.selectInflowAction(creep);
-    } else {
-        return this.selectAction(creep, this.outflowActions(creep));
-    }
+    return this.nextEnergyAction(creep);
 };

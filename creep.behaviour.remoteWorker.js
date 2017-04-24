@@ -21,17 +21,13 @@ mod.outflowActions = (creep) => {
         Creep.action.recycling
     ];
 };
+mod.needEnergy = creep => creep.sum < creep.carryCapacity * 0.8;
 mod.nextAction = function(creep) {
     const flag = creep.data.destiny && Game.flags[creep.data.destiny.targetName];
     if (!flag && (!creep.action || creep.action.name !== 'recycling')) {
         return this.assignAction(creep, 'recycling');
     } else if (creep.data.destiny.room === creep.pos.roomName) { // at target room
-        if (creep.sum < creep.carryCapacity * 0.8) {
-            // get some energy
-            return this.selectInflowAction(creep);
-        } else {
-            return this.selectAction(creep, this.outflowActions(creep));
-        }
+        return this.nextEnergyAction(creep);
     } else { // not at target room
         return this.gotoTargetRoom(creep);
     }
