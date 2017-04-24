@@ -22,7 +22,8 @@ action.isValidTarget = function(target){
     return (target != null ) && target.structureType == 'controller' && target.my;
 };
 action.newTarget = function(creep){
-    return ( creep.room.controller && creep.room.controller.my) ? creep.room.controller : null;
+    const target = (creep.room.controller && creep.room.controller.my) ? creep.room.controller : null;
+    return this.isAddableTarget(target, creep) && target;
 };
 action.work = function(creep, range){
     if( range && range < 2 ) creep.controllerSign();

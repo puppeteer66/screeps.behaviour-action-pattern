@@ -14,6 +14,7 @@ let mod = {
         ANALYZE_LIMIT: 2, // profile warning levels
         AVERAGE_USAGE: false, // display average creep & flag usage
         BASIC_ONLY: true, // only display basic profiling information, disables all other profiling
+        BEHAVIOUR: false, // profile behaviour action assignment
         CREEPS: false, // display creep profiling information
         CREEP_TYPE: '', // define a specific creep to profile, requires CREEPS=true
         EXECUTE_LIMIT: 5, // profile warning levels
