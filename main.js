@@ -131,6 +131,7 @@ global.install = () => {
 
     // Load modules
     _.assign(global, {
+        CostMatrix: load('costMatrix'),
         Extensions: load("extensions"),
         Population: load("population"),
         FlagDir: load("flagDir"),
@@ -250,8 +251,7 @@ global.install = () => {
     // custom extend
     if( global.mainInjection.extend ) global.mainInjection.extend();
     OCSMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
-
-    CostMatrix = load("costMatrix");
+    
     global.modulesValid = Memory.modules.valid;
     if (global.DEBUG) logSystem('Global.install', 'Code reloaded.');
 };
