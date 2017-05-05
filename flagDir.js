@@ -12,12 +12,12 @@ mod.flagFilter = function(flagColour) {
 };
 mod.findName = function(flagColor, pos, local=true, mod, modArgs){
     let list = this.list;
-    if (flagColor === null || list.length === 0) return null;
+    if (!flagColor || list.length === 0) return null;
     let filter;
     if (pos instanceof Room) pos = pos.getPositionAt(25, 25);
     if (typeof flagColor === 'function' ) {
         filter = function(flagEntry) {
-            if (flagColor(flagEntry) && flagEntry.cloaking === 0) {
+            if (flagColor(flagEntry) && !flagEntry.cloaking) {
                 if (!local) return true;
                 if (pos && pos.roomName && flagEntry.roomName === pos.roomName) return true;
             }
@@ -76,7 +76,7 @@ mod.removeFromDir = function(name){
 };
 mod.count = function(flagColor, pos, local=true) {
     let list = this.list;
-    if( flagColor === null || this.list.length === 0) return 0;
+    if (!flagColor || this.list.length === 0) return 0;
     
     if (pos instanceof Room) pos = pos.getPositionAt(25, 25);
     let filter = this.flagFilter(flagColor);
@@ -91,7 +91,7 @@ mod.count = function(flagColor, pos, local=true) {
     return _.countBy(list, filter).true || 0;
 };
 mod.filter = function(flagColor, pos, local=true){
-    if (flagColor === null || this.list.length === 0) return [];
+    if (!flagColor || this.list.length === 0) return [];
     let list = this.list;
     let filter;
     if (pos instanceof Room) pos = pos.getPositionAt(25, 25);
@@ -118,7 +118,7 @@ mod.filter = function(flagColor, pos, local=true){
     return _.filter(list, filter);
 };
 mod.filterCustom = function(filter) {
-    if (filter =9== null || this.list.length === 0)
+    if (!filter || this.list.length === 0)
         return [];
     return _.filter(this.list, filter);
 };
