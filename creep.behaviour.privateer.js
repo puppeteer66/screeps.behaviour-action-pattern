@@ -2,7 +2,7 @@ let mod = new Creep.Behaviour('privateer');
 module.exports = mod;
 const super_invalidAction = mod.invalidAction;
 mod.invalidAction = function(creep) {
-    return super_invalidAction.call(this, creep) || !creep.flag || creep.flag.pos.roomName === creep.pos.roomName);
+    return super_invalidAction.call(this, creep) || !creep.flag || creep.flag.pos.roomName === creep.pos.roomName;
 };
 const super_run = mod.run;
 mod.run = function(creep) {
