@@ -4,7 +4,7 @@ action.isValidAction = function(creep) {
     return creep.room.storage && creep.room.storage.isActive() && creep.sum > 0;
 };
 action.isValidTarget = function(target){
-    return ((target) && (target.store) && target.isActive() && target.sum < target.storeCapacity);
+    return ((target) && (target.store) && target.active && target.sum < target.storeCapacity);
 };
 action.isAddableTarget = function(target, creep){
     return ( target.my &&
@@ -30,7 +30,7 @@ action.newTarget = function(creep){
         // &&
         //(creep.room.terminal.storeCapacity - creep.room.terminal.sum) >= creep.carry[roomMineralType]);
 
-    if( creep.room.terminal && creep.room.terminal.isActive() &&
+    if( creep.room.terminal && creep.room.terminal.active &&
         ( sendMineralToTerminal(creep) || sendEnergyToTerminal(creep) ) &&
         this.isAddableTarget(creep.room.terminal, creep)) {
             return creep.room.terminal;
