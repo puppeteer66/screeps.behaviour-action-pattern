@@ -72,7 +72,17 @@ const Behaviour = function(name) {
         if (this.needEnergy(creep)) {
             return this.selectInflowAction(creep);
         } else {
-            return this.selectAction(creep, this.outflowActions(creep));
+            if (creep.data.nextAction && creep.data.nextTarget) {
+                const action = Creep.action[creep.data.nextAction];
+                const target = Game.getObjectById(creep.data.nextTarget);
+                delete creep.data.nextAction;
+                delete creep.data.nextTarget;
+                if (this.assignAction(creep, action, target)) {
+                    return true;
+                }
+            } else {
+                return this.selectAction(creep, this.outflowActions(creep));
+            }
         }
     };
     this.invalidAction = function(creep) {
