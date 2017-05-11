@@ -80,9 +80,8 @@ const Behaviour = function(name) {
                 if (this.assignAction(creep, action, target)) {
                     return true;
                 }
-            } else {
-                return this.selectAction(creep, this.outflowActions(creep));
             }
+            return this.selectAction(creep, this.outflowActions(creep));
         }
     };
     this.invalidAction = function(creep) {
