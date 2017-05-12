@@ -43,6 +43,12 @@ mod.run = function(creep, params = {}) {
     }
 
     if( source ) {
+
+      if (creep.room.name = 'E91S31') {
+        console.log(creep.name + " going for source " + source.id)
+      }
+
+
         if (!creep.action || creep.action.name !== 'harvesting') Population.registerAction(creep, Creep.action.harvesting, source);
         if( !creep.data.determinatedSpot ) {
             let invalid = [];
@@ -112,7 +118,7 @@ mod.run = function(creep, params = {}) {
                 }
             }
             if( !creep.data.determinatedSpot ) {
-                logError('Unable to determine working location for miner in room ' + creep.pos.roomName);
+                logError('Unable to determine working location for miner ' + creep.name + ' in room ' + creep.pos.roomName);
             }
         }
 
