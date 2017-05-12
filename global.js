@@ -52,6 +52,10 @@ mod.FLAG_COLOR = {
             color: COLOR_RED,
             secondaryColor: COLOR_YELLOW,
         },
+        drainingTower: { // take energy from foreign structures
+            color: COLOR_RED,
+            secondaryColor: COLOR_WHITE,
+        },
         attackController: { // attack enemy controller and then claim
             color: COLOR_RED,
             secondaryColor: COLOR_CYAN,
@@ -283,7 +287,7 @@ mod.logError = function(message, entityWhere) {
 mod.trace = function(category, entityWhere, ...message) {
     if (!( Memory.debugTrace[category] === true || _(entityWhere).reduce(reduceMemoryWhere, 1) === true )) return;
     if (Memory.debugTrace.no && _(entityWhere).pairs().some(noMemoryWhere) === true) return;
-    
+
     let msg = message;
     let key = '';
     if (message.length === 0 && category) {
@@ -292,7 +296,7 @@ mod.trace = function(category, entityWhere, ...message) {
             key = leaf;
             leaf = entityWhere[leaf];
         } while (entityWhere[leaf] && leaf != category);
-        
+
         if (leaf && leaf != category) {
             if (typeof leaf === 'string') {
                 msg = [leaf];
@@ -301,7 +305,7 @@ mod.trace = function(category, entityWhere, ...message) {
             }
         }
     }
-    
+
     console.log(Game.time, dye(CRAYON.error, category), ...msg, dye(CRAYON.birth, JSON.stringify(entityWhere)), Util.stack());
 };
 // log some text as "system message" showing a "referrer" as label
@@ -345,7 +349,7 @@ mod.isSummerTime = function(date) {
     // last sunday of october
     temp = new Date(year, 9, 31);
     var end = new Date(year, 9, temp.getDate() - temp.getDay(), 3, 0, 0);
-    
+
     return ( begin < date && date < end );
 };
 // add a game object, obtained from its id, to an array
