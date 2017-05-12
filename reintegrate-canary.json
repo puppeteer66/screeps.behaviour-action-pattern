@@ -1,0 +1,23 @@
+{
+  "ocs.internal": {
+    "reset": "upstream/dev",
+    "merge": [
+      "upstream/change/behaveYourselves",
+      "upstream/change/hopperTargets",
+      "upstream/change/tidyUp",
+      "upstream/feature/actionRenewing"
+    ]
+  },
+  "ocs.public": {
+    "reset": "upstream/dev",
+    "merge": [
+      "upstream/change/behaveYourselves",
+      "upstream/feature/cacheRoomFlags",
+      "upstream/feature/compressedSerialization",
+      "upstream/feature/explainSaysAssignment",
+      "upstream/feature/virtualFlags",
+      "upstream/fix/viralAvoidance",
+      "upstream/hotfix/visSCUformat"
+    ]
+  }
+}
