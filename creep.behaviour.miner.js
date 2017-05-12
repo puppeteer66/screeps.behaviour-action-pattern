@@ -1,6 +1,5 @@
-let mod = {};
+const mod = new Creep.Behaviour('miner');
 module.exports = mod;
-mod.name = 'miner';
 mod.approach = function(creep){
     const targetPos = new RoomPosition(creep.data.determinatedSpot.x, creep.data.determinatedSpot.y, creep.data.homeRoom);
     const range = creep.pos.getRangeTo(targetPos);
@@ -33,8 +32,8 @@ mod.determineTarget = creep => {
     if( SAY_ASSIGNMENT ) creep.say(String.fromCharCode(9935), global.SAY_PUBLIC);
 };
 mod.run = function(creep, params = {}) {
-    if (_.isUndefined(params.approach)) params.approach = mod.approach;
-    if (_.isUndefined(params.determineTarget)) params.determineTarget = mod.determineTarget;
+    if (_.isUndefined(params.approach)) params.approach = this.approach;
+    if (_.isUndefined(params.determineTarget)) params.determineTarget = this.determineTarget;
     let source;
     if( !creep.data.determinatedTarget ) { // select source
         params.determineTarget(creep);
@@ -208,7 +207,7 @@ mod.run = function(creep, params = {}) {
         // move towards our source so we're ready to take over
         } else if (creep.pos.getRangeTo(source) > 3) {
             creep.data.travelRange = 3;
-            return Creep.action.travelling.assign(creep, source);
+            return this.assignAction(creep, 'travelling', source);
         }
     }
 };

@@ -160,6 +160,7 @@ global.install = () => {
         labTech: load("task.labTech"),
     });
     Creep.Action = load("creep.Action");
+    Creep.Behaviour = load("creep.Behaviour");
     Creep.Setup = load("creep.Setup");
     _.assign(Creep, {
         action: {
