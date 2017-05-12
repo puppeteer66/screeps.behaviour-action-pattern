@@ -1,7 +1,7 @@
 global._ME = _(Game.rooms).map('controller').filter('my').map('owner.username').first();
 let mod = {
     ME: _ME,
-    CHATTY: true, // creeps say their current action
+    CHATTY: false, // creeps say their current action
     HONK: true, // HONK when stored path is blocked by other creeps
     OOPS: true, // Creeps say Oops when dropping energy during dropmining
     SAY_ASSIGNMENT: true, // say a symbol representing the assiged action
@@ -124,7 +124,7 @@ let mod = {
     MAX_FORTIFY_CONTAINER: 50000,
     LIMIT_URGENT_REPAIRING: 750, // urgent repair when hits below
     GAP_REPAIR_DECAYABLE: 800, // decayables (e.g. roads) only get repaired when that much hits are missing
-    MEMORY_RESYNC_INTERVAL: 500, // interval to reload spawns & towers present in a room
+    MEMORY_RESYNC_INTERVAL: 50, // interval to reload spawns & towers present in a room
     PROCESS_ORDERS_INTERVAL: 500, // interval to process room orders and run terminalBroker
     TIME_REPORT: 28000, // ticks between room reports
     REPORT_MAX_LENGTH: 500,
@@ -136,11 +136,11 @@ let mod = {
     ROAD_CONSTRUCTION_ABS_MIN: 3,
     TIME_ZONE: 1, // zone offset in hours (-12 through +12) from UTC
     USE_SUMMERTIME: true, // Please define isSummerTime in global.js to suit to your local summertime rules
-    SPAWN_DEFENSE_ON_ATTACK: true, // This will attempt to store enough to have a defense and spawn troops when invaded.
-    MANAGED_CONTAINER_TRIGGER: 0.25, // managed containers get filled below this relative energy amount and emptied when above 1-this value
+    SPAWN_DEFENSE_ON_ATTACK: false, // This will attempt to store enough to have a defense and spawn troops when invaded.
+    MANAGED_CONTAINER_TRIGGER: 0.1, // managed containers get filled below this relative energy amount and emptied when above 1-this value
     ROUTE_ROOM_COST: {}, // custom room routing cost: e.g. `{ 'W4N4': 11 }`. Affects bestSpawnRoomFor, Creep.Setup calculations, and travel cost predictions. Please call 'delete Memory.routeRange;' whenever you change this property.
     TRAVELLING_BORDER_RANGE: 22, // room arrival distance for travelling and routes
-    NOTIFICATE_INVADER: false, // Also log common 'Invader' hostiles
+    NOTIFICATE_INVADER: true, // Also log common 'Invader' hostiles
     NOTIFICATE_INTRUDER: true, // Log any hostiles in your rooms
     NOTIFICATE_HOSTILES: true, // Log any hostiles - Ignores NOTIFICATE_INTRUDER and NOTIFICATE_INVADER
     COMBAT_CREEPS_RESPECT_RAMPARTS: false, // causes own creeps not to leave through ramparts
@@ -149,9 +149,9 @@ let mod = {
     CONSTRUCTION_PRIORITY: [STRUCTURE_SPAWN,STRUCTURE_EXTENSION,STRUCTURE_LINK,STRUCTURE_TERMINAL,STRUCTURE_STORAGE,STRUCTURE_TOWER,STRUCTURE_POWER_SPAWN,STRUCTURE_NUKER,STRUCTURE_OBSERVER,STRUCTURE_ROAD,STRUCTURE_CONTAINER,STRUCTURE_EXTRACTOR,STRUCTURE_LAB,STRUCTURE_WALL,STRUCTURE_RAMPART],
     CONTROLLER_SIGN: true,
     // function parameters: room. expected result: string
-    CONTROLLER_SIGN_MESSAGE: `Territory of ${_ME}, an Open Collaboration Society user! (https://github.com/ScreepsOCS)`,
-    CONTROLLER_SIGN_UPDATE: false, // Update sign message if user changes CONTROLLER_SIGN_MESSAGE
-    MINERS_AUTO_BUILD: false, // miners and remoteMiners will build their own containers if they are missing.
+    CONTROLLER_SIGN_MESSAGE: `Puppetland`,
+    CONTROLLER_SIGN_UPDATE: true, // Update sign message if user changes CONTROLLER_SIGN_MESSAGE
+    MINERS_AUTO_BUILD: true, // miners and remoteMiners will build their own containers if they are missing.
     MINER_WORK_THRESHOLD: 50, // how long to wait before a miner checks for repairs/construction sites nearby again
     REMOTE_HAULER: {
         ALLOW_OVER_CAPACITY: 2450, // Hauler capacity rounds up by MIN_WEIGHT, or this number value.
@@ -164,7 +164,7 @@ let mod = {
         MULTIPLIER: 4, // Max number of haulers spawned per source in a remote mining room.
         REHOME: true, // May haulers choose closer storage for delivery?
     },
-    TASK_CREEP_CHECK_INTERVAL: 250, // Maximum number of ticks before a task checks to see if it needs to spawn new creeps
+    TASK_CREEP_CHECK_INTERVAL: 150, // Maximum number of ticks before a task checks to see if it needs to spawn new creeps
     REMOTE_RESERVE_HAUL_CAPACITY: 0.1, // Percent of allocated haul capacity before sending reservers.
     PIONEER_UNOWNED: false, // True: pioneers may attempt to work in unowned rooms.
     DRIVE_BY_REPAIR_RANGE: 2, // range that creeps should search when trying to repair and move
