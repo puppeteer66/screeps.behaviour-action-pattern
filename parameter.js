@@ -1,7 +1,7 @@
 global._ME = _(Game.rooms).map('controller').filter('my').map('owner.username').first();
 let mod = {
     ME: _ME,
-    CHATTY: false, // creeps say their current action
+    CHATTY: true, // creeps say their current action
     HONK: true, // HONK when stored path is blocked by other creeps
     OOPS: true, // Creeps say Oops when dropping energy during dropmining
     SAY_ASSIGNMENT: true, // say a symbol representing the assiged action
