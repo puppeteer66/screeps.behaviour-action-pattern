@@ -116,6 +116,7 @@ mod.run = function(creep, params = {}) {
                 if (!spot) spot = creep.pos.findClosestByPath(spots) || spots[0];
 
                 if (source.id === '58dbc5708283ff5308a40691') {
+                  console.log('here');
                   creep.data.determinatedSpot = {
                       x: 14,
                       y: 43
