@@ -53,7 +53,7 @@ mod.checkForRequiredCreeps = (flag) => {
                 let memory = Task.drainTower.memory(Game.flags[creepSetup.destiny.targetName]);
                 memory.queued.push({
                     room: creepSetup.queueRoom,
-                    name: creepSetup.name,
+                    name: 'TD',
                     targetName: flag.name
                 });
             }
