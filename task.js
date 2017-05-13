@@ -14,6 +14,7 @@ mod.populate = function() {
         Task.reputation,
         Task.reserve,
         Task.robbing,
+        Task.drainTower,
     ]);
 };
 mod.addTasks = (...task) => Task.tasks.push(...task);
@@ -127,7 +128,7 @@ mod.spawn = (creepDefinition, destiny, roomParams, onQueued) => {
         queueRoom: room.name
     };
     if( creepSetup.parts.length === 0 ) {
-        // creep has no body. 
+        // creep has no body.
         global.logSystem(flag.pos.roomName, dye(CRAYON.error, `${destiny.task} task tried to queue a zero parts body ${creepDefinition.behaviour} creep. Aborted.` ));
         return null;
     }
