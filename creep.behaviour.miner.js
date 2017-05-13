@@ -42,9 +42,11 @@ mod.run = function(creep, params = {}) {
         source = Game.getObjectById(creep.data.determinatedTarget);
     }
 
+
+
     if( source ) {
 
-      if (creep.room.name = 'E91S31') {
+      if (creep.room.name === 'E91S31') {
         console.log(creep.name + " going for source " + source.id)
       }
 
