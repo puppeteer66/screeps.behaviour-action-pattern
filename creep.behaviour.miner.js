@@ -114,6 +114,17 @@ mod.run = function(creep, params = {}) {
                     }});
                 }
                 if (!spot) spot = creep.pos.findClosestByPath(spots) || spots[0];
+
+                if (source.id === '58dbc5708283ff5308a40691') {
+                  spot = {
+                    x: 14,
+                    y: 43
+                  }
+                }
+
+
+
+
                 if (spot) {
                     creep.data.determinatedSpot = {
                         x: spot.x,
