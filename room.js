@@ -1256,11 +1256,6 @@ mod.validFields = function(roomName, minX, maxX, minY, maxY, checkWalkable = fal
 };
 // args = { spots: [{pos: RoomPosition, range:1}], checkWalkable: false, where: ()=>{}, roomName: abc ) }
 mod.fieldsInRange = function(args) {
-  if (args.roomName === 'E91S31') {
-    console.log(args.roomName + ' args.spots ' + args.spots.length);
-        console.log(args.roomName + ' args.spots1 ' + JSON.stringify(args.spots[0]));
-                console.log(args.roomName + ' args.spots2 ' + JSON.stringify(args.spots[1]));
-  }
     let plusRangeX = args.spots.map(spot => spot.pos.x + spot.range);
     let plusRangeY = args.spots.map(spot => spot.pos.y + spot.range);
     let minusRangeX = args.spots.map(spot => spot.pos.x - spot.range);
@@ -1269,9 +1264,5 @@ mod.fieldsInRange = function(args) {
     let maxX = Math.min(...plusRangeX);
     let minY = Math.max(...minusRangeY);
     let maxY = Math.min(...plusRangeY);
-    if (args.roomName === 'E91S31') {
-            console.log(args.roomName + ' plusRangeX ' + plusRangeX + ' plusRangeY ' + plusRangeY + ' minusRangeX ' + minusRangeX + ' minusRangeY ' + minusRangeY);
-      console.log(args.roomName + ' minX ' + minX + ' maxX ' + maxX + ' minY ' + minY + ' maxY ' + maxY + ' args.checkWalkable ' + args.checkWalkable);
-    }
     return Room.validFields(args.roomName, minX, maxX, minY, maxY, args.checkWalkable, args.where);
 };
