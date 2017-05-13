@@ -610,7 +610,7 @@ mod.extend = function(){
             },
         },
     });
-    
+
     Room.prototype.checkRCL = function() {
         if (!this.controller) return;
         if (this.memory.RCL !== this.controller.level) {
@@ -772,7 +772,7 @@ mod.extend = function(){
     Room.prototype.invalidateCostMatrix = function() {
         Room.costMatrixInvalid.trigger(this.name);
     };
-    
+
     Room.prototype.highwayHasWalls = function() {
         if (!Room.isHighwayRoom(this.name)) return false;
         return !!_.find(this.getPositionAt(25, 25).lookFor(LOOK_STRUCTURES), s => s instanceof StructureWall);
@@ -785,16 +785,16 @@ mod.extend = function(){
         for (const prop of ['x', 'y', 'roomName']) {
             if (!Reflect.has(object, prop) || !Reflect.has(target, prop)) return;
         }
-        
+
         if (!Room.isHighwayRoom(this.name)) return;
         if (!this.highwayHasWalls()) return true;
-        
+
         const [x, y] = Room.calcCoordinates(this.name, (x, y) => [x, y]);
-        
+
         const getVerHalf = o => Math.floor(o.x / 25) === 0 ? LEFT : RIGHT;
-        
+
         const getHorHalf = o => Math.floor(o.y / 25) === 0 ? TOP : BOTTOM;
-        
+
         const getQuadrant = o => {
             const verHalf = getVerHalf(o);
             const horHalf = getHorHalf(o);
@@ -804,23 +804,23 @@ mod.extend = function(){
                 return horHalf === TOP ? TOP_RIGHT : BOTTOM_RIGHT;
             }
         };
-        
+
         if (x % 10 === 0) {
             if (y % 10 === 0) { // corner room
-                
+
                 const top = !!_.find(this.getPositionAt(25, 24).lookFor(LOOK_STRUCTURES), s => s instanceof StructureWall);
                 const left = !!_.find(this.getPositionAt(24, 25).lookFor(LOOK_STRUCTURES, s => s instanceof StructureWall));
                 const bottom = !!_.find(this.getPositionAt(25, 26).lookFor(LOOK_STRUCTURES, s => s instanceof StructureWall));
                 const right = !!_.find(this.getPositionAt(26, 25).lookFor(LOOK_STRUCTURES, s => s instanceof StructureWall));
-                
+
                 // both in same quadrant
                 if (getQuadrant(object) === getQuadrant(target)) return true;
-                
+
                 if (top && left && bottom && right) {
                     // https://i.imgur.com/8lmqtbi.png
                     return getQuadrant(object) === getQuadrant(target);
                 }
-                
+
                 if (top) {
                     if (bottom) {
                         // cross section
@@ -873,13 +873,13 @@ mod.extend = function(){
         for (const prop of ['x', 'y', 'roomName']) {
             if (!Reflect.has(target, prop)) return;
         }
-        
+
         if (!Room.isHighwayRoom(this.name)) return;
         if (!this.highwayHasWalls()) return true;
-        
+
         const closestRoom = _(Game.rooms).filter('my').min(r => Game.map.getRoomLinearDistance(r.name, this.name));
         if (closestRoom === Infinity) return;
-        
+
         const [x1, y1] = Room.calcGlobalCoordinates(this.name, (x, y) => [x, y]);
         const [x2, y2] = Room.calcGlobalCoordinates(closestRoom, (x, y) => [x, y]);
         let dir = '';
@@ -1264,5 +1264,8 @@ mod.fieldsInRange = function(args) {
     let maxX = Math.min(...plusRangeX);
     let minY = Math.max(...minusRangeY);
     let maxY = Math.min(...plusRangeY);
+    if (creep.room.name === 'E91S31') {
+      console.log(args.roomName + ' minX ' + minX + ' maxX ' + maxX + ' minY ' + minY + ' maxY ' + maxY + ' args.checkWalkable ' + args.checkWalkable);
+    }
     return Room.validFields(args.roomName, minX, maxX, minY, maxY, args.checkWalkable, args.where);
 };
