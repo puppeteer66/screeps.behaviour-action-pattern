@@ -97,11 +97,13 @@ mod.run = function(creep, params = {}) {
                     });
                 spots = Room.fieldsInRange(args);
             }
+            if (creep.room.name === 'E91S31') {
+              console.log(creep.name + ' :spots ' + spots.length + ' args ' + JSON.stringify(args));
+            }
+
             if (containerSpot || spots.length > 0) {
 
-              if (creep.room.name === 'E91S31') {
-                console.log(creep.name + ' :spots ' + JSON.stringify(spots));
-              }
+
 
 
                 let spot = containerSpot;
