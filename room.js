@@ -1264,7 +1264,7 @@ mod.fieldsInRange = function(args) {
     let maxX = Math.min(...plusRangeX);
     let minY = Math.max(...minusRangeY);
     let maxY = Math.min(...plusRangeY);
-    if (creep.room.name === 'E91S31') {
+    if (args.roomName === 'E91S31') {
       console.log(args.roomName + ' minX ' + minX + ' maxX ' + maxX + ' minY ' + minY + ' maxY ' + maxY + ' args.checkWalkable ' + args.checkWalkable);
     }
     return Room.validFields(args.roomName, minX, maxX, minY, maxY, args.checkWalkable, args.where);
