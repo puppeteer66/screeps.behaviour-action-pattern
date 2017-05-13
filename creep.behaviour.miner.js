@@ -43,14 +43,12 @@ mod.run = function(creep, params = {}) {
     }
 
     if( source ) {
-
-      if (creep.room.name = 'E91S31') {
-        console.log(creep.name + " going for source " + source.id)
-      }
-
-
         if (!creep.action || creep.action.name !== 'harvesting') Population.registerAction(creep, Creep.action.harvesting, source);
         if( !creep.data.determinatedSpot ) {
+          if (creep.name = 'remoteMiner-Flag4-4') {
+            console.log('no determinated1')
+          }
+
             let invalid = [];
             let findInvalid = entry => {
                 const predictedRenewal = entry.predictedRenewal ? entry.predictedRenewal : entry.spawningTime;
@@ -64,6 +62,10 @@ mod.run = function(creep, params = {}) {
             let spots = [];
             let args;
             if (!containerSpot) {
+              if( !creep.data.determinatedSpot ) {
+                if (creep.name = 'remoteMiner-Flag4-4') {
+                  console.log('no containerspot')
+                }
                 args = {
                     spots: [{
                         pos: source.pos,
