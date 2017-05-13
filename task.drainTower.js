@@ -16,13 +16,9 @@ mod.handleFlagFound = flag => {
 };
 mod.creep = {
     drainTower: {
-        fixedBody: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE],
-        multiBody: {
-            [MOVE]: 1,
-            [RANGED_ATTACK]: 1,
-        },
-        name: "drainTower",
-        behaviour: "ranger",
+        fixedBody: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, HEAL, HEAL],
+        name: "TD",
+        behaviour: "towerDrainer",
         queue: 'Low'
     },
 };
@@ -53,7 +49,7 @@ mod.checkForRequiredCreeps = (flag) => {
                 let memory = Task.drainTower.memory(Game.flags[creepSetup.destiny.targetName]);
                 memory.queued.push({
                     room: creepSetup.queueRoom,
-                    name: 'TD',
+                    name: creepSetup.name,
                     targetName: flag.name
                 });
             }
