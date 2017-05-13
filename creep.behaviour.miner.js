@@ -72,7 +72,7 @@ mod.run = function(creep, params = {}) {
             let args;
             if (!containerSpot) {
               if (creep.room.name === 'E91S31') {
-                console.log(creep.name + ' no containerSpot');
+                console.log(creep.name + ' no containerSpot ' + invalid);
               }
 
                 args = {
