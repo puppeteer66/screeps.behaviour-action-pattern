@@ -48,6 +48,13 @@ mod.run = function(creep, params = {}) {
 
       if (creep.room.name === 'E91S31') {
         console.log(creep.name + ' going for source ' + source.id);
+        if (source.id === '58dbc5708283ff5308a40691') {
+          console.log('here');
+          creep.data.determinatedSpot = {
+              x: 14,
+              y: 43
+          };
+        }
       }
 
 
@@ -115,13 +122,7 @@ mod.run = function(creep, params = {}) {
                 }
                 if (!spot) spot = creep.pos.findClosestByPath(spots) || spots[0];
 
-                if (source.id === '58dbc5708283ff5308a40691') {
-                  console.log('here');
-                  creep.data.determinatedSpot = {
-                      x: 14,
-                      y: 43
-                  };
-                } else
+
 
 
 
