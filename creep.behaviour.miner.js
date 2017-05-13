@@ -98,6 +98,12 @@ mod.run = function(creep, params = {}) {
                 spots = Room.fieldsInRange(args);
             }
             if (containerSpot || spots.length > 0) {
+
+              if (creep.room.name === 'E91S31') {
+                console.log(creep.name + ' :spots ' + JSON.stringify(spots));
+              }
+
+
                 let spot = containerSpot;
                 if (!spot) {
                     spot = creep.pos.findClosestByPath(spots, {filter: pos => {
