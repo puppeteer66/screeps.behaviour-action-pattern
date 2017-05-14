@@ -32,9 +32,7 @@ mod.run = function(tower){
         p.checkCPU('urgentRepairable', 0.5);
 
 
-var hostileToAttack;
-
-
+        var hostileToAttack;
         var hostiles = tower.room.find(FIND_HOSTILE_CREEPS);
         if (hostiles) {}
         for (let h of hostiles) {
@@ -43,13 +41,12 @@ var hostileToAttack;
               hostileToAttack = h;
               break;
             }
+          }
         }
-      }
 
         if (!hostileToAttack) {
-                  var hostileToAttack = tower.pos.findClosestByRange(tower.room.hostiles);
+           var hostileToAttack = tower.pos.findClosestByRange(tower.room.hostiles);
         }
-
 
         if(hostileToAttack) {
             // Attack

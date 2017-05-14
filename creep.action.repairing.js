@@ -7,7 +7,7 @@ action.isValidAction = function(creep){
 };
 action.isValidTarget = function(target){
     return ( target != null && target.hits &&
-    target.hits < target.hitsMax);
+    target.hits < target.hitsMax && target.room.name !== 'E93S31');
 };
 action.isAddableTarget = function(target, creep){
     return (
