@@ -10,6 +10,9 @@ action.isValidTarget = function(target){
     target.hits < target.hitsMax && target.room.name !== 'E93S31');
 };
 action.isAddableTarget = function(target, creep){
+  if (creep.room.name === 'E93S31') {
+    return false;
+  }
     return (
         (target instanceof OwnedStructure && target.my) ||
         (
