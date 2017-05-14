@@ -36,6 +36,7 @@ var hostileToAttack;
 
 
         var hostiles = tower.room.find(FIND_HOSTILE_CREEPS);
+        if (hostiles) {}
         for (let h of hostiles) {
           for (let bodypart of h.body) {
             if (bodypart.type === HEAL) {
@@ -43,6 +44,7 @@ var hostileToAttack;
               break;
             }
         }
+      }
 
         if (!hostileToAttack) {
                   var hostileToAttack = tower.pos.findClosestByRange(tower.room.hostiles);
