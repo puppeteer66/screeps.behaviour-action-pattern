@@ -31,10 +31,27 @@ mod.run = function(tower){
         }
         p.checkCPU('urgentRepairable', 0.5);
 
-        var closestHostile = tower.pos.findClosestByRange(tower.room.hostiles);
-        if(closestHostile) {
+
+var hostileToAttack;
+
+
+        var hostiles = tower.room.find(FIND_HOSTILE_CREEPS);
+        for (let h of hostiles) {
+          for (let bodypart of h.body) {
+            if (bodypart.type === HEAL) {
+              hostileToAttack = h;
+              break;
+            }
+        }
+
+        if (!hostileToAttack) {
+                  var hostileToAttack = tower.pos.findClosestByRange(tower.room.hostiles);
+        }
+
+
+        if(hostileToAttack) {
             // Attack
-            tower.attack(closestHostile);
+            tower.attack(hostileToAttack);
         }
         p.checkCPU('closestHostile', 0.5);
         /*
